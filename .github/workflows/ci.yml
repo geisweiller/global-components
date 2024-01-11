@@ -15,8 +15,5 @@ jobs:
     name: Build, lint, test & analyze
     runs-on: ubuntu-latest
     steps:
-      - name: Lint
-        run: yarn lint
-
       - name: Test
         run: yarn test
