@@ -11,9 +11,19 @@ on:
       - synchronize
 
 jobs:
-  build:
-    name: Build, lint, test & analyze
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     steps:
-      - name: Test
-        run: yarn test
+      - uses: DerYeger/yarn-setup-action@master
+        with:
+          node-version: 20
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - uses: DerYeger/yarn-setup-action@master
+        with:
+          node-version: 16
+      - run: yarn test
