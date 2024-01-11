@@ -25,5 +25,5 @@ jobs:
     steps:
       - uses: DerYeger/yarn-setup-action@master
         with:
-          node-version: 16
+          node-version: 20
       - run: yarn test
