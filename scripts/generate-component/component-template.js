@@ -18,14 +18,15 @@ interface ${name}Props {
   baz: string;
 }
 
-const ${name} = ({ foo, bar, baz }: ${name}Props) => (
+export const ${name} = ({ foo, bar, baz }: ${name}Props) => {
+  return(
   <div className={styles.wrapper}>
     <p>Hello 👋, I am a ${name} component.</p>
     <div>{foo ? bar : baz}</div>
   </div>
-);
+)
+};
 
-export default ${name};
 `;
 }
 
@@ -62,6 +63,7 @@ export function test(fileName) {
   return `import React from 'react';
 import { render } from '@testing-library/react';
 import { Default, Secondary } from './${fileName}.stories.js';
+import { expect, test } from 'vitest';
 
 test('renders Bar when foo is true', () => {
   const { getByText } = render(<Default {...Default.args} />);
