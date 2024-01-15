@@ -32,11 +32,11 @@ writeFile(
   writeFileErrorHandler
 );
 
-// storybook.js
+// storybook.ts
 writeFile(
-  `${dir}/${fileName}.stories.js`,
+  `${dir}/${fileName}.stories.ts`,
   story(name, fileName),
   writeFileErrorHandler
 );
-// test.js
-writeFile(`${dir}/${fileName}.test.js`, test(fileName), writeFileErrorHandler);
+// test.tsx
+writeFile(`${dir}/${fileName}.test.tsx`, test(fileName), writeFileErrorHandler);
