@@ -20,8 +20,7 @@ interface ${name}Props {
 
 export const ${name} = ({ foo, bar, baz }: ${name}Props) => {
   return(
-  <div className={styles.wrapper}>
-
+  <div>
     <p>Hello 👋, I am a ${name} component.</p>
     <div>{foo ? bar : baz}</div>
   </div>
@@ -35,7 +34,7 @@ export const ${name} = ({ foo, bar, baz }: ${name}Props) => {
 export function story(name, fileName) {
   return `import type { Meta, StoryObj } from "@storybook/react";
 
-import ${name} from "./${fileName}";
+import { ${name} } from "./${fileName}";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -48,7 +47,7 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-} satisfies Meta<typeof RadioButton>;
+} satisfies Meta<typeof ${name}>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -69,12 +68,11 @@ export const Primary: Story = {
 export function test(fileName) {
   return `import React from 'react';
 
-import { render } from '@testing-library/react';
-import { Default, Secondary } from './${fileName}.stories.js';
-import { expect, test } from 'vitest';
-
+import { render, screen } from "@testing-library/react";
+import { expect, describe, it } from "vitest";
 
 import * as stories from "./${fileName}.stories";
+import { composeStories } from "@storybook/react";
 
 const { Primary } = composeStories(stories);
 
