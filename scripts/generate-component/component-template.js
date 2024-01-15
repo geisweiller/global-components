@@ -1,7 +1,7 @@
 // component.tsx
-export function component(name, fileName) {
+export function component(name) {
   return `import React from 'react';
-import styles from './${fileName}.module.css';
+
 
 interface ${name}Props {
   /**
@@ -19,7 +19,7 @@ interface ${name}Props {
 }
 
 const ${name} = ({ foo, bar, baz }: ${name}Props) => (
-  <div className={styles.wrapper}>
+  <div>
     <p>Hello 👋, I am a ${name} component.</p>
     <div>{foo ? bar : baz}</div>
   </div>
@@ -31,46 +31,55 @@ export default ${name};
 
 // component.stories.jsx
 export function story(name, fileName) {
-  return `import React from 'react';
-import ${name} from './${fileName}';
+  return `import type { Meta, StoryObj } from "@storybook/react";
 
-export default {
-  title: 'Components/${name}',
+import ${name} from "./${fileName}";
+
+// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
+const meta = {
+  title: "Component/${name}",
   component: ${name},
+  parameters: {
+    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
+    layout: "centered",
+  },
+  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  tags: ["autodocs"],
+  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+} satisfies Meta<typeof RadioButton>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const Primary: Story = {
+  args: {
+    foo: true,
+    bar: "bar",
+    baz: "baz",
+  },
 };
 
-const Template = (args) => <${name} {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  foo: true,
-  bar: 'Yes Foo',
-  baz: 'No Foo',
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  foo: false,
-  bar: 'Yes Foo',
-  baz: 'No Foo',
-};
 `;
 }
 
 // component.test.tsx
 export function test(fileName) {
   return `import React from 'react';
-import { render } from '@testing-library/react';
-import { Default, Secondary } from './${fileName}.stories.js';
+import { composeStories } from "@storybook/react";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
-test('renders Bar when foo is true', () => {
-  const { getByText } = render(<Default {...Default.args} />);
-  expect(getByText(Default.args.bar)).toBeInTheDocument();
-});
+import * as stories from "./${fileName}.stories";
 
-test('renders Baz when foo is false', () => {
-  const { getByText } = render(<Secondary {...Secondary.args} />);
-  expect(getByText(Secondary.args.baz)).toBeInTheDocument();
+const { Primary } = composeStories(stories);
+
+describe("Primary", () => {
+  it("should render Primary", () => {
+    render(<Primary />);
+
+    expect(screen.getByText("bar")).toBeTruthy();
+  });
 });
 `;
 }
