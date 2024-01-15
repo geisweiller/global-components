@@ -18,14 +18,16 @@ interface ${name}Props {
   baz: string;
 }
 
-const ${name} = ({ foo, bar, baz }: ${name}Props) => (
-  <div>
+export const ${name} = ({ foo, bar, baz }: ${name}Props) => {
+  return(
+  <div className={styles.wrapper}>
+
     <p>Hello 👋, I am a ${name} component.</p>
     <div>{foo ? bar : baz}</div>
   </div>
-);
+)
+};
 
-export default ${name};
 `;
 }
 
@@ -66,9 +68,11 @@ export const Primary: Story = {
 // component.test.tsx
 export function test(fileName) {
   return `import React from 'react';
-import { composeStories } from "@storybook/react";
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+
+import { render } from '@testing-library/react';
+import { Default, Secondary } from './${fileName}.stories.js';
+import { expect, test } from 'vitest';
+
 
 import * as stories from "./${fileName}.stories";
 
