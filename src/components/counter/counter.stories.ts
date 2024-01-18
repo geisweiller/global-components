@@ -14,10 +14,10 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     index: {
-      control: 'number',
-      description: 'Initial value of counter'
-    }
-  }
+      control: "number",
+      description: "Initial value of counter",
+    },
+  },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
 } satisfies Meta<typeof Counter>;
 
@@ -26,13 +26,11 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
-  args: { 
-  },
+  args: {},
 };
 
 export const WithCustomInitialValue: Story = {
   args: {
     index: 10,
   },
-}
-
+};
