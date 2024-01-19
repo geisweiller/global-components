@@ -11,9 +11,10 @@ const meta = {
     layout: "centered",
     docs: {
       description: {
-        component : "Counter component that alow to increment or decrement using buttons or edit number directly. It does not allow the value to go below 1 based on the assumption that counts for negative numbers or zero are not needed but this can be changed following the instructions on the Counter component file "
-      }
-    }
+        component:
+          "Counter component that alow to increment or decrement using buttons or edit number directly. It does not allow the value to go below 1 based on the assumption that counts for negative numbers or zero are not needed but this can be changed following the instructions on the Counter component file ",
+      },
+    },
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
