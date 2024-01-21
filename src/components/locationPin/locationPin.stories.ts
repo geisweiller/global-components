@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { LocationPin } from "./locationPin";
+import { LocationPin, LocationType } from "./locationPin";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -71,3 +71,15 @@ export const WithCustomMessages: Story = {
   },
 };
 
+export const WithSelectedPlaces: Story = {
+  args: {
+    locationType: [LocationType.CITY, LocationType.STATE]
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "LocationPin component to display selected city and state",
+      },
+    },
+  },
+};
