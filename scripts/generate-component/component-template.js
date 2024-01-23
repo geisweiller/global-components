@@ -1,6 +1,6 @@
 // component.tsx
 export function component(name) {
-  return `import React from 'react';
+  return `
 
 
 interface ${name}Props {
@@ -66,7 +66,7 @@ export const Primary: Story = {
 
 // component.test.tsx
 export function test(fileName) {
-  return `import React from 'react';
+  return `
 
 import { render, screen } from "@testing-library/react";
 import { expect, describe, it } from "vitest";
