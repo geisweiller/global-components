@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { LocationPin, LocationType } from "./locationPin";
+import { LocationPin, LocationType } from "./location-pin";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -22,19 +22,22 @@ const meta = {
       },
     },
   },
- 
+
   argTypes: {
     defaultLocation: {
       control: "string",
-      description: "A default location to be shown if a precise location cannot be found.",
+      description:
+        "A default location to be shown if a precise location cannot be found.",
     },
     errorMessage: {
       control: "string",
-      description: "A custom error message to be displayed if there is an error fetching the location.",
+      description:
+        "A custom error message to be displayed if there is an error fetching the location.",
     },
     loadingMessage: {
       control: "string",
-      description: "A custom loading message to be displayed while the location is being fetched.",
+      description:
+        "A custom loading message to be displayed while the location is being fetched.",
     },
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
@@ -65,7 +68,8 @@ export const WithCustomMessages: Story = {
   parameters: {
     docs: {
       description: {
-        story: "LocationPin component with custom loading, error, and default location messages. Customize these messages to suit your application's needs.",
+        story:
+          "LocationPin component with custom loading, error, and default location messages. Customize these messages to suit your application's needs.",
       },
     },
   },
@@ -73,7 +77,7 @@ export const WithCustomMessages: Story = {
 
 export const WithSelectedPlaces: Story = {
   args: {
-    locationType: [LocationType.CITY, LocationType.STATE]
+    locationType: [LocationType.CITY, LocationType.STATE],
   },
   parameters: {
     docs: {
