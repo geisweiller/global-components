@@ -14,10 +14,9 @@ interface CounterProps {
  */
 
 export const SimpleCounter = ({ index = 1 }: CounterProps) => {
-
   return (
     <>
-        <span>{index}</span>
+      <span>{index}</span>
     </>
   );
 };
