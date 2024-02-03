@@ -1,11 +1,12 @@
 interface ProgressProps {
-  /**
-   * totalOfTasks represents the total number of tasks that must be completed to achieve 100% completion. Providing this allows the component to calculate the progress made.
+   /**
+   * totalOfTasks (optional) represents the total number of tasks that must be completed to achieve 100% completion.
+   * If not provided, the component interprets this as an indeterminate progress and displays a spinner symbolizing ongoing work without a known endpoint.
+   * Once the work is done, the parent component should update the totalOfTasks to be equal to tasksCompleted to display the 'Completed!' state.
    */
   totalOfTasks?: number;
   /**
    * tasksCompleted is the number of tasks that have already been completed. To show the progress evolution as it happens, this number should be stored and updated in the parent component, typically using a useState hook.
-   * IMPORTANT if the totalOfTasks props is not sent the comonent will interpret that the progress does not have a forseeable end and will turn into a spinner symbolizing ongoing work without a known endpoint.
    */
   tasksCompleted: number;
   /**
@@ -20,9 +21,11 @@ taskInformation?: string;
 }
 
 /**
- * The progress component displays the advancement made towards completing any task. Once the task is completed it will stop showing the progress and just show "Completed!" instead, you can change on the conditional progressMade >= 100, and if you erase this contitional it will just show "100%" (or full bar) once all progress is made.
- * If the end of the task is unknown, this can be indicated by not sending a totalOfTask number. In this case, the progress will transform into a spinner, symbolizing ongoing work without a known endpoint.
- * For determinate tasks, progress can be displayed as a percentage or a progress bar, based on user preference set through props.
+ * The progress component displays the advancement made towards completing any task. Once the task is completed it will stop showing the progress and just show "Completed!" instead, you can change the message of completion on the conditional progressMade >= 100, and if you erase this contidional it will just show "100%" (or full bar) once all progress is made.
+ *
+ *  - For determinate tasks (when totalOfTasks is provided), progress can be displayed as a percentage or a progress bar, based on the isInBar prop.
+ * - For indeterminate tasks (when totalOfTasks is not provided), the component will display a spinner, symbolizing ongoing work without a known endpoint. 
+ *   Once the task is completed, the parent component should update totalOfTasks to match tasksCompleted to transition from the spinner to "Completed!" state.
  * 
  * Task Information:
  * The component can also display the name or description of the current task being completed, providing context on what part of the overall process is currently underway. This feature enhances user understanding of the progress in relation to the specific tasks being performed.
@@ -35,7 +38,7 @@ taskInformation?: string;
  * This component utilizes Tailwind CSS classes for spinner animation (animate-spin), progress bar styling,and other utility classes for layout and design. The color, size, and margin classes can be adjusted to meet the specific design needs of your project.
  */
 
-// PROBLEM IF THE TOTAL OF TASK IS NOT PASSED AND THE COMPONENT ITS A SPINNER HOW WILL IT LEARN ONCE THE WORK ITS DONE AND IT CAN STOP SHOWING THE SPINNER?
+// PROBLEM IF THE TOTAL OF TASK IS NOT PASSED AND THE COMPONENT ITS A SPINNER HOW WILL IT LEARN ONCE THE WORK ITS DONE AND IT CAN STOP SHOWING THE SPINNER
 
 export const Progress = ({
   tasksCompleted,
