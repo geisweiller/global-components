@@ -1,14 +1,11 @@
 interface ProgressProps {
   /**
-   * hasEndpoint is set to true by default. If this prop is passed as false, the component will turn into a spinner, symbolizing ongoing work without a known endpoint.
-   */
-  hasEndpoint?: boolean;
-  /**
    * totalOfTasks represents the total number of tasks that must be completed to achieve 100% completion. Providing this allows the component to calculate the progress made.
    */
-  totalOfTasks: number;
+  totalOfTasks?: number;
   /**
    * tasksCompleted is the number of tasks that have already been completed. To show the progress evolution as it happens, this number should be stored and updated in the parent component, typically using a useState hook.
+   * IMPORTANT if the totalOfTasks props is not sent the comonent will interpret that the progress does not have a forseeable end and will turn into a spinner symbolizing ongoing work without a known endpoint.
    */
   tasksCompleted: number;
   /**
@@ -24,7 +21,7 @@ taskInformation?: string;
 
 /**
  * The progress component displays the advancement made towards completing any task. Once the task is completed it will stop showing the progress and just show "Completed!" instead, you can change on the conditional progressMade >= 100, and if you erase this contitional it will just show "100%" (or full bar) once all progress is made.
- * If the end of the task is unknown, this can be indicated via props. In this case, the progress will transform into a spinner, symbolizing ongoing work without a known endpoint.
+ * If the end of the task is unknown, this can be indicated by not sending a totalOfTask number. In this case, the progress will transform into a spinner, symbolizing ongoing work without a known endpoint.
  * For determinate tasks, progress can be displayed as a percentage or a progress bar, based on user preference set through props.
  * 
  * Task Information:
@@ -38,15 +35,18 @@ taskInformation?: string;
  * This component utilizes Tailwind CSS classes for spinner animation (animate-spin), progress bar styling,and other utility classes for layout and design. The color, size, and margin classes can be adjusted to meet the specific design needs of your project.
  */
 
-
+// PROBLEM IF THE TOTAL OF TASK IS NOT PASSED AND THE COMPONENT ITS A SPINNER HOW WILL IT LEARN ONCE THE WORK ITS DONE AND IT CAN STOP SHOWING THE SPINNER?
 
 export const Progress = ({
   tasksCompleted,
   totalOfTasks,
   isInBar = false,
-  hasEndpoint = true,
   taskInformation,
 }: ProgressProps) => {
+  if(!totalOfTasks) {
+    return <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-4 border-t-white animate-spin"></div>
+ 
+  }
   const progressMade = (tasksCompleted / totalOfTasks) * 100;
 
   const displayProgress = isInBar ? (
@@ -59,10 +59,6 @@ export const Progress = ({
   ) : (
     `${progressMade}%`
   );
-
-  if (!hasEndpoint) {
-    return <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-4 border-t-white animate-spin"></div>
-  }
 
   if(progressMade >= 100) {
     return(
