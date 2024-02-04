@@ -69,7 +69,7 @@ export const Progress = ({
   }
 
   return (
-    <div className="w-64"> // without widht in this div it will not render in bars without tasks. 
+    <div className="w-64">
       {displayProgress}
       {taskInformation && <p>{taskInformation}</p>}
     </div>
