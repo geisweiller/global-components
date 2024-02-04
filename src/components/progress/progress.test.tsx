@@ -1,14 +1,12 @@
-
-
 import { render, screen } from "@testing-library/react";
 import { expect, describe, it } from "vitest";
 
 import * as stories from "./progress.stories";
 import { composeStories } from "@storybook/react";
 
-const { Primary } = composeStories(stories);
+const { Default, InBar, InBarAnTaskInformation, IndeterminateTaskWithCompletion, TaskInformation } = composeStories(stories);
 
-describe("Primary", () => {
+describe("Progress components tests", () => {
   it("should render Primary", () => {
     render(<Primary />);
 

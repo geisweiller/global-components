@@ -102,7 +102,6 @@ export const InBar: Story = {
           totalOfTasks={args.totalOfTasks}
           tasksCompleted={tasksCompleted}
           isInBar={args.isInBar}
-          taskInformation={args.taskInformation}
         />
       );
     };
@@ -124,6 +123,7 @@ export const TaskInformation: Story = {
       const taskNames = ["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"];
 
       useEffect(() => {
+        
         const interval = setInterval(() => {
           setTasksCompleted((currentProgress) => {
             const updatedProgress = currentProgress + 20;

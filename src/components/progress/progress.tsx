@@ -35,10 +35,9 @@ taskInformation?: string;
  * Additionally, for a collective view, the component can aggregate the progress of multiple tasks, offering a unified progress measure. This is particularly useful in scenarios where the completion of several sub-tasks contributes to the completion of a larger, overarching task.
  * 
  * Styles:
- * This component utilizes Tailwind CSS classes for spinner animation (animate-spin), progress bar styling,and other utility classes for layout and design. The color, size, and margin classes can be adjusted to meet the specific design needs of your project.
+ * This component utilizes Tailwind CSS classes for spinner animation (animate-spin), progress bar styling,and other utility classes for layout and design. The color, size, and margin classes can be adjusted to meet the specific design needs of your project. all colors are set in custom in tailwind.config.js
  */
 
-// PROBLEM IF THE TOTAL OF TASK IS NOT PASSED AND THE COMPONENT ITS A SPINNER HOW WILL IT LEARN ONCE THE WORK ITS DONE AND IT CAN STOP SHOWING THE SPINNER
 
 export const Progress = ({
   tasksCompleted,
@@ -47,15 +46,15 @@ export const Progress = ({
   taskInformation,
 }: ProgressProps) => {
   if(!totalOfTasks) {
-    return <div className="w-16 h-16 border-4 border-gray-200 rounded-full border-t-4 border-t-white animate-spin"></div>
+    return <div className="w-16 h-16 border-4 border-light-gray rounded-full border-t-4 border-t-dark-blue animate-spin"></div>
  
   }
   const progressMade = (tasksCompleted / totalOfTasks) * 100;
 
   const displayProgress = isInBar ? (
-    <div className="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700">
+    <div className="w-full bg-gray rounded-full h-4">
   <div
-    className="bg-blue-600 h-4 rounded-full"
+    className="bg-dark-blue h-4 rounded-full"
     style={{ width: `${progressMade}%` }}
   ></div>
 </div>
@@ -70,7 +69,7 @@ export const Progress = ({
   }
 
   return (
-    <div>
+    <div className="w-64"> // without widht in this div it will not render in bars without tasks. 
       {displayProgress}
       {taskInformation && <p>{taskInformation}</p>}
     </div>
