@@ -4,8 +4,6 @@ interface CounterProps {
   /**
    * The index will be the number of initialization of counter on first render.
    * If not provided, the counter will initialize with a default value of 1.
-   *
-   *
    */
   index?: number;
 }
