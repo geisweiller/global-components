@@ -4,7 +4,7 @@ import { expect, describe, it } from "vitest";
 import * as stories from "./progress.stories";
 import { composeStories } from "@storybook/react";
 
-const { Default, IndeterminateTaskWithCompletion} = composeStories(stories);
+const { Default, IndeterminateTaskWithCompletion, InBarAnTaskInformation} = composeStories(stories);
 
 describe("Progress components tests", () => {
   it("should render default starting with some tasks already completed",() => {
@@ -42,5 +42,22 @@ describe("Progress components tests", () => {
     });
   })
 
+  it("should render the progress bar with correct width when isInBar is true", () => {
+        render(<InBarAnTaskInformation tasksCompleted={30} />);
+        
+        const totalBar = document.querySelector(".bg-gray");
+        expect(totalBar).toBeTruthy();
 
+        const progressBar = document.querySelector('.bg-blue-600');
+        if (progressBar) {
+          const progressBarStyle = window.getComputedStyle(progressBar);
+          expect(progressBarStyle.width).toBe(30)
+        }
+    })
+
+    it("should display the tasks when tasksInformation is provided", ()=> {
+      render(<Default taskInformation="Task 1"  />);
+
+      expect(screen.getByText("Task 1")).toBeTruthy();
+    })
 });
